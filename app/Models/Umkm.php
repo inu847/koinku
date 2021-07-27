@@ -15,4 +15,9 @@ class Umkm extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    function product()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
 }
