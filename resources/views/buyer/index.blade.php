@@ -7,7 +7,8 @@
 @section('content')
 	@foreach ($user as $data)
 		<div class="col-lg-12">
-			<a data-toggle="modal" data-target="#exampleModalContent">
+			<a href="{{ route('shoping', [$data->id]) }}">
+			{{-- <a data-toggle="modal" data-target="#exampleModalContent"> --}}
 				<div class="card mb-4 progress-banner" style="height: 120px;">
 					<div class="card-body justify-content-between d-flex flex-row align-items-center">
 						<div class="row">

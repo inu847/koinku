@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BuyerController::class, 'index'])->name('home');
-Route::get('/umkm', [BuyerController::class, 'getUmkm'])->name('filterUmkm');
+Route::get('/shoping', [BuyerController::class, 'getUmkm'])->name('filterUmkm');
+Route::get('/shoping/{id}', [BuyerController::class, 'shoping'])->name('shoping');
 
 Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::get('login', [AuthController::class, 'todoLogin'])->name('todoLogin');

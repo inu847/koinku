@@ -25,4 +25,12 @@ class BuyerController extends Controller
         }
         return view('buyer.index', ['user' => $user]);
     }
+
+    public function shoping($id)
+    {
+        $user = Umkm::findOrFail($id);
+        $products = Product::where('umkm_id', $user->id)->where('status', 'publish')->paginate(30);
+        // dd($products);
+        return view('buyer.belanja', ['user' => $user, 'products' => $products]);
+    }
 }

@@ -24,7 +24,12 @@
     <link rel="stylesheet" href="{{ asset('css/dore.light.blue.css') }}" />
 </head>
 
-<body id="app-container" class="menu-hidden show-spinner">
+@hasSection ('body')
+    @yield('body')
+@else
+    <body id="app-container" class="menu-hidden show-spinner">
+@endif
+
     <nav class="navbar fixed-top">
         <div class="d-flex align-items-center navbar-left">
             <u><a href="{{ route('dashboard') }}" class="ml-3" rel="noopener noreferrer" target="_blank">Seller</a></u>
@@ -151,18 +156,22 @@
             @endauth
         </div>
     </nav>
-
+    @yield('menu')
     <main>
         @yield('content')
     </main>
 
-    <footer class="page-footer">
-        <div class="footer-content">
-            <div class="container-fluid">
-                <p class="mb-0 text-muted text-center">© {{now()->format('Y')}} Inkapps</p>
+    @hasSection ('footer')
+        @yield('footer')
+    @else    
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="container-fluid">
+                    <p class="mb-0 text-muted text-center">© {{now()->format('Y')}} Inkapps</p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    @endif
 
     <script src="{{ asset('js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.bundle.min.js') }}"></script>
