@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Umkm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BuyerController extends Controller
 {
     public function index()
     {
+        // dd(Auth::guard('buyer')->check());
         $products = Product::where('status', 'publish')->paginate(50);
 
         return view('welcome', ['products' => $products]);

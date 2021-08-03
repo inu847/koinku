@@ -28,8 +28,8 @@
                                 {{session('status')}}
                             </div>
                         @endif
-                        <h6 class="mb-4">Login Umkm</h6>
-                        <form method="POST" action="{{ route('login') }}">
+                        <h6 class="mb-4">Login</h6>
+                        <form method="POST" action="{{ route('loginBuyer') }}">
                             @csrf
 
                             <label class="form-group has-float-label mb-4">
@@ -50,7 +50,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                
                                 <span>Password</span>
                             </label>
                             {{-- <div class="mb-5">
@@ -60,7 +59,6 @@
                                     @endif
                                 </div> 
                             </div> --}}
-                            
                             <label class="custom-control custom-checkbox mb-0">
                                 <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <span class="custom-control-label"></span>
@@ -75,6 +73,7 @@
                                     <button class="btn btn-primary btn-block" type="submit">LOGIN</button>
                                 </div>
                             </div> 
+                            <a href="{{ route('todoLogin') }}" class="btn btn-warning btn-block">Login Seller</a>
                         </form>
                     </div>
                 </div>

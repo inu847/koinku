@@ -17,13 +17,12 @@ class Umkm
     public function handle(Request $request, Closure $next)
     {
         if (\Auth::guard('umkm')->check() == true) {
-            if ($request->route()->uri == 'umkm/login' or $request->route()->uri == 'umkm/register') {
+            if ($request->route()->uri == 'login' or $request->route()->uri == 'register') {
                 return redirect()->back();
-            }else{
-                return $next($request);
             }
         }else {
-            return $next($request);
+            return redirect()->route('login');
         }
+        return $next($request);
     }
 }

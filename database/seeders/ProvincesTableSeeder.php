@@ -14,13 +14,13 @@ class ProvincesTableSeeder extends Seeder
      */
     public function run()
     {
-        $url_province = "http://www.emsifa.com/api-wilayah-indonesia/api/provinces.jsonb";
+        $url_province = "http://www.emsifa.com/api-wilayah-indonesia/api/provinces.json";
         $json_str = file_get_contents($url_province);
         $json_obj = json_decode($json_str);
         $provinces = [];
-        foreach($json_obj->rajaongkir->results as $province){
+        foreach($json_obj as $province){
         $provinces[] = [
-                'id' => $province->province_id,
+                'id' => $province->id,
                 'province' => $province->name
             ];
         }

@@ -24,6 +24,7 @@ class CreateUmkmsTable extends Migration
             $table->string('file_umkm');
             $table->string('profile')->nullable();
             $table->string('ktp');
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

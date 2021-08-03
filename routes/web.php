@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\InvestasiController;
 use App\Http\Controllers\UmkmController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,12 +21,21 @@ Route::get('/', [BuyerController::class, 'index'])->name('home');
 Route::get('/shoping', [BuyerController::class, 'getUmkm'])->name('filterUmkm');
 Route::get('/shoping/{id}', [BuyerController::class, 'shoping'])->name('shoping');
 
+Route::get('login', [AuthController::class, 'todoLogin'])->name('todoLogin');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('register', [AuthController::class, 'todoRegistrasi'])->name('todoRegistrasi');
+Route::post('register', [AuthController::class, 'registrasi'])->name('registrasi.umkm');
+
+Route::prefix('buyer')->group(function () {
+    Route::get('login', [AuthController::class, 'todoLoginBuyer'])->name('todoLoginBuyer');
+    Route::post('login', [AuthController::class, 'loginBuyer'])->name('loginBuyer');
+    Route::get('logoutBuyer', [AuthController::class, 'logoutBuyer'])->name('logoutBuyer');
+    Route::get('registrasi', [AuthController::class, 'todoRegistrasiBuyer'])->name('todoRegistrasiBuyer');
+    Route::post('registrasi', [AuthController::class, 'registrasiBuyer'])->name('registrasiBuyer');
+});
+
 Route::prefix('umkm')->middleware('umkm')->group(function () {
-    Route::get('login', [AuthController::class, 'todoLogin'])->name('todoLogin');
-    Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('register', [AuthController::class, 'todoRegistrasi'])->name('todoRegistrasi');
-    
     // DASHBOARD
     Route::get('dashboard', [UmkmController::class, 'dashboard'])->name('dashboard');
 
@@ -41,4 +51,7 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::get('product/edit/{id}', [UmkmController::class, 'gotoProductEdit'])->name('manage-product.edit');
     Route::put('product/update/{id}', [UmkmController::class, 'gotoProductUpdate'])->name('manage-product.update');
     Route::post('product/delete/{id}', [UmkmController::class, 'gotoProductDestroy'])->name('manage-product.destroy');
+
+    // INVESTASI
+    Route::get('investasi', [InvestasiController::class, 'index'])->name('investasi.index');
 });

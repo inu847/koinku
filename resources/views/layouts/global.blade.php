@@ -208,7 +208,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('investasi.index') }}">
                             <i class="iconsminds-financial"></i>
                             <span>Investasi</span>
                         </a>

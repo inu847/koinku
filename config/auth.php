@@ -51,6 +51,11 @@ return [
             'driver' => 'session',
             'provider' => 'umkms',
         ],
+
+        'buyer' => [
+            'driver' => 'session',
+            'provider' => 'buyers',
+        ],
     ],
 
     /*
@@ -76,6 +81,11 @@ return [
             'model' => App\Models\Umkm::class,
         ],
 
+        'buyers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Buyer::class,
+        ],
+        
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

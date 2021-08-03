@@ -41,7 +41,6 @@
                     </div>
                 </div> 
             </form>
-   
         </div>
         
 
@@ -150,9 +149,38 @@
                     </div>
                 </div>
             @else
-                <a href="{{ route('todoLogin') }}" class="text-sm mr-1">Log in</a>
-                <span>|</span>
-                <a href="{{ route('todoRegistrasi') }}" class="ml-1 text-sm mr-2">Register</a>
+                @auth('buyer')
+                    <div class="user d-inline-block">
+                        <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <span class="name">{{ Auth::guard('buyer')->user()->name }}</span>
+                            <span>
+                                @if (Auth::guard('buyer')->user()->profil)
+                                    <img alt="Profile Picture" src="{{asset('storage/'. Auth::guard('buyer')->user()->profil)}}"/>
+                                @else 
+                                    <img alt="Profile Picture" src="{{ asset('img/image-not-found.png')}}" />
+                                @endif
+                            </span>
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-right mt-3">
+                            <a class="dropdown-item" href="#">Account</a>
+                            <a class="dropdown-item" href="#">Features</a>
+                            <a class="dropdown-item" href="#">History</a>
+                            <a class="dropdown-item" href="#">Support</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" 
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" >Sign out</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>                            
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('todoLoginBuyer') }}" class="text-sm mr-1">Log in</a>
+                    <span>|</span>
+                    <a href="{{ route('todoRegistrasi') }}" class="ml-1 text-sm mr-2">Register</a>
+                @endauth
             @endauth
         </div>
     </nav>
@@ -161,17 +189,13 @@
         @yield('content')
     </main>
 
-    @hasSection ('footer')
-        @yield('footer')
-    @else    
-        <footer class="page-footer">
-            <div class="footer-content">
-                <div class="container-fluid">
-                    <p class="mb-0 text-muted text-center">© {{now()->format('Y')}} Inkapps</p>
-                </div>
+    <footer class="page-footer">
+        <div class="footer-content">
+            <div class="container-fluid">
+                <p class="mb-0 text-muted text-center">© {{now()->format('Y')}} Inkapps</p>
             </div>
-        </footer>
-    @endif
+        </div>
+    </footer>
 
     <script src="{{ asset('js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.bundle.min.js') }}"></script>

@@ -15,7 +15,7 @@
 				<ul class="list-unstyled">
 					<li class="active">
 						<a href="#menu">
-							<i class="iconsminds-three-arrow-fork"></i> Menu
+							
 						</a>
 					</li>
 				</ul>
@@ -23,118 +23,46 @@
 		</div>
 		<div class="sub-menu">
 			<div class="scroll">
-				<ul class="list-unstyled" data-link="menu" id="menuTypes">
+				<ul class="list-unstyled" data-link="menu" id="pesanan">
 					<li>
-						<a href="#" data-toggle="collapse" data-target="#collapseMenuTypes" aria-expanded="true"
-							aria-controls="collapseMenuTypes" class="rotate-arrow-icon">
-							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Menu Types</span>
-						</a>
-						<div id="collapseMenuTypes" class="collapse show" data-parent="#menuTypes">
-							<ul class="list-unstyled inner-level-menu">
-								<li>
-									<a href="Menu.Default.html">
-										<i class="simple-icon-control-pause"></i> <span
-											class="d-inline-block">Default</span>
-									</a>
-								</li>
-								<li>
-									<a href="Menu.Subhidden.html">
-										<i class="simple-icon-arrow-left mi-subhidden"></i> <span
-											class="d-inline-block">Subhidden</span>
-									</a>
-								</li>
-								<li>
-									<a href="Menu.Hidden.html">
-										<i class="simple-icon-control-start mi-hidden"></i> <span
-											class="d-inline-block">Hidden</span>
-									</a>
-								</li>
-								<li class="active">
-									<a href="Menu.Mainhidden.html">
-										<i class="simple-icon-control-rewind mi-hidden"></i> <span
-											class="d-inline-block">Mainhidden</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#" data-toggle="collapse" data-target="#collapseMenuLevel" aria-expanded="true"
-							aria-controls="collapseMenuLevel" class="rotate-arrow-icon collapsed">
-							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Menu Levels</span>
-						</a>
-						<div id="collapseMenuLevel" class="collapse" data-parent="#menuTypes">
-							<ul class="list-unstyled inner-level-menu">
-								<li>
-									<a href="#">
-										<i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-											Level</span>
-									</a>
-								</li>
-								<li>
-									<a href="#" data-toggle="collapse" data-target="#collapseMenuLevel2"
-										aria-expanded="true" aria-controls="collapseMenuLevel2"
-										class="rotate-arrow-icon collapsed">
-										<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Another
-											Level</span>
-									</a>
-									<div id="collapseMenuLevel2" class="collapse">
-										<ul class="list-unstyled inner-level-menu">
-											<li>
-												<a href="#">
-													<i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-														Level</span>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#" data-toggle="collapse" data-target="#collapseMenuDetached" aria-expanded="true"
-							aria-controls="collapseMenuDetached" class="rotate-arrow-icon collapsed">
+						<div class="mb-2">
 							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
-						</a>
-						<div id="collapseMenuDetached" class="collapse">
-							<ul class="list-unstyled inner-level-menu">
-								<li>
-									<a href="#">
-										<i class="simple-icon-layers"></i> <span class="d-inline-block">Sub
-											Level</span>
-									</a>
-								</li>
-							</ul>
-						</div>
+                        </div>
                     </li>
                     <li>
-                        <form action="#" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            {{-- <input type="hidden" value="{{ $new_buyer->enkripsi_token }}" name="enkripsi">
-                            <input type="hidden" value="{{ $new_buyer['id'] }}" name="buyer_id">
-                            <input type="hidden" value="{{ $user['id'] }}" name="user_id"> --}}
-                            <button type="submit" class="btn btn-danger">Lihat Pesanan</button>
-                        </form>
+						<div class="mb-2">
+							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
+                        </div>
+                    </li>
+					<li>
+						<div class="mb-2">
+							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
+                        </div>
                     </li>
 				</ul>
+                <div class="align-bottom">
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Lihat Pesanan</button>
+                    </form>
+                </div>
 			</div>
-		</div>
+        </div>
 	</div>
 @endsection
 
 @section('content')
-    <div class="scroll">
-        <div class="scroll-content"> 
             <div class="container-fluid disable-text-selection">
-                {{-- <div class="alert alert-success">
-                    <div>Selamat Datang {{ $new_buyer['buyer'] }} Silahkan Memesan Di Daftar Menu Yang Tersedia!!</div>
-                </div> --}}
+                <div class="alert alert-success">
+                    @auth('buyer') 
+                        <div>Selamat Datang {{ Auth::guard('buyer')->user()->name }} Silahkan Memesan Di Daftar Menu Yang Tersedia!!</div>
+                    @endauth
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="col-lg-12">
                             <a href="#">
-                                <div class="card mb-4 progress-banner" style="height: 120px;">
+                                <div class="card mb-4 progress-banner">
                                     <div class="card-body justify-content-between d-flex flex-row align-items-center">
                                         <div class="row">
                                             <div class="col-4">
@@ -274,10 +202,7 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
-        </div>
 @endsection
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
     $(document).on('click', '#addtocart', function(e) {
