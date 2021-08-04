@@ -38,18 +38,18 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'umkms',
+            'provider' => 'users',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'umkms',
+            'provider' => 'users',
             'hash' => false,
         ],
 
-        'umkm' => [
+        'user' => [
             'driver' => 'session',
-            'provider' => 'umkms',
+            'provider' => 'users',
         ],
 
         'buyer' => [
@@ -76,14 +76,9 @@ return [
     */
 
     'providers' => [        
-        'umkms' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Umkm::class,
-        ],
-
-        'buyers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Buyer::class,
+            'model' => App\Models\User::class,
         ],
         
         // 'users' => [

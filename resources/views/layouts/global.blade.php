@@ -135,14 +135,14 @@
 
             </div>
 
-            @auth('umkm')
+            @auth('user')
             <div class="user d-inline-block">
                 <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <span class="name">{{ Auth::guard('umkm')->user()->username }}</span>
+                    <span class="name">{{ Auth::guard('user')->user()->name }}</span>
                     <span>
-                        @if (Auth::guard('umkm')->user()->profil)
-                            <img alt="Profile Picture" src="{{asset('storage/'.Auth::guard('umkm')->user()->profil)}}"/>
+                        @if (Auth::guard('user')->user()->profil)
+                            <img alt="Profile Picture" src="{{asset('storage/'.Auth::guard('user')->user()->profil)}}"/>
                         @else 
                             <img alt="Profile Picture" src="{{ asset('img/image-not-found.png')}}" />
                         @endif

@@ -16,7 +16,7 @@ class Umkm
      */
     public function handle(Request $request, Closure $next)
     {
-        if (\Auth::guard('umkm')->check() == true) {
+        if (\Auth::guard('user')->check() == true) {
             if ($request->route()->uri == 'login' or $request->route()->uri == 'register') {
                 return redirect()->back();
             }

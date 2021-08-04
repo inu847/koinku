@@ -25,7 +25,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="">Username</label>
-                                                        <input type="text" class="form-control" name="username" value="{{$user->username}}">
+                                                        <input type="text" class="form-control" name="username" value="{{$user->name}}">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Nama Umkm</label>
@@ -56,29 +56,53 @@
                                                         <div id="collapseOne" class="collapse " data-parent="#accordion">
                                                             <div class="p-4">
                                                                 <div class="form-row">
-                                                                    <div class="form-group col-md-4">
+                                                                    <div class="form-group col-md-6">
                                                                         <label for="">Provinsi</label>
-                                                                        <select name="alamat[]" id="province" class="form-control" onclick="getprovinsi()">
-                                                                            <option value="{{ json_decode($user->alamat[0]) }}">{{ province(json_decode($user->alamat)) }}</option>
-                                                                        </select>
+                                                                        @if ($user->alamat)
+                                                                            <select name="alamat[]" id="province" class="form-control">
+                                                                                <option value="{{ json_decode($user->alamat[0]) }}">{{ province(json_decode($user->alamat)) }}</option>
+                                                                            </select>
+                                                                        @else
+                                                                            <select name="alamat[]" id="province" class="form-control">
+                                                                                <option></option>
+                                                                            </select>
+                                                                        @endif
                                                                     </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Kota</label>
-                                                                        <select name="alamat[]" id="kota" class="form-control">
-                                                                            <option value="{{ json_decode($user->alamat[1]) }}">{{ kota(json_decode($user->alamat)) }}</option>
-                                                                        </select>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Kabupaten/Kota</label>
+                                                                        @if ($user->alamat)
+                                                                            <select name="alamat[]" id="kota" class="form-control">
+                                                                                <option value="{{ json_decode($user->alamat[1]) }}">{{ kota(json_decode($user->alamat)) }}</option>
+                                                                            </select>
+                                                                        @else
+                                                                            <select name="alamat[]" id="kota" class="form-control">
+                                                                                <option></option>
+                                                                            </select>
+                                                                        @endif
                                                                     </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Kecamatan</label>
-                                                                        <select name="alamat[]" id="kelurahan" class="form-control">
-                                                                            <option value="{{ json_decode($user->alamat[2]) }}">{{ kelurahan(json_decode($user->alamat)) }}</option>
-                                                                        </select>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Kelurahan</label>
+                                                                        @if ($user->alamat)
+                                                                            <select name="alamat[]" id="kelurahan" class="form-control">
+                                                                                <option value="{{ json_decode($user->alamat[2]) }}">{{ kelurahan(json_decode($user->alamat)) }}</option>
+                                                                            </select>
+                                                                        @else
+                                                                            <select name="alamat[]" id="kelurahan" class="form-control">
+                                                                                <option></option>
+                                                                            </select>
+                                                                        @endif
                                                                     </div>
-                                                                    <div class="form-group col-md-4">
+                                                                    <div class="form-group col-md-6">
                                                                         <label for="">Desa</label>
-                                                                        <select name="alamat[]" id="desa" class="form-control">
-                                                                            <option value="{{ json_decode($user->alamat[3]) }}">{{ desa(json_decode($user->alamat)) }}</option>
-                                                                        </select>
+                                                                        @if ($user->alamat)
+                                                                            <select name="alamat[]" id="desa" class="form-control">
+                                                                                <option value="{{ json_decode($user->alamat[3]) }}">{{ desa(json_decode($user->alamat)) }}</option>
+                                                                            </select>
+                                                                        @else
+                                                                            <select name="alamat[]" id="desa" class="form-control">
+                                                                                <option></option>
+                                                                            </select>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -119,6 +143,26 @@
 <script src="{{ asset('js/jquery.min.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+    $(document).on("click", "#province", function() { 
+        $.ajax({
+            type: 'GET',
+            url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
+            async: false,
+            dataType: 'json',
+            success: function(response) {
+                var data = response.provinsi
+                var prov;
+                console.log(data)
+                for(i = 0;i < data.length;i++){
+                    prov += "<option value='" + data[i].id + "'>" + data[i].nama + "</option>"
+                }
+                $("#province").html(prov);
+            },
+            error: function(response) {
+                console.log(response)
+            }
+        });
+    })
     $(function() {
         $("#province").change(function() { 
             var displaycourse = $("#province option:selected").val();
@@ -138,27 +182,6 @@
             getDesa(displaycourse)
         })
     })
-
-    function getprovinsi(){
-        $.ajax({
-            type: 'GET',
-            url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
-            async: false,
-            dataType: 'json',
-            success: function(response) {
-                var data = response.provinsi
-                var prov;
-                console.log(data)
-                for(i = 0;i < data.length;i++){
-                    prov += "<option value='" + data[i].id + "'>" + data[i].nama + "</option>"
-                }
-                $("#province").html(prov);
-            },
-            error: function(response) {
-                console.log(response)
-            }
-        });
-    }
 
     function getkabupaten(idprov) {
      $.ajax({

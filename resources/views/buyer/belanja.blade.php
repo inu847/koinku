@@ -22,31 +22,19 @@
 			</div>
 		</div>
 		<div class="sub-menu">
-			<div class="scroll">
-				<ul class="list-unstyled" data-link="menu" id="pesanan">
-					<li>
-						<div class="mb-2">
-							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
-                        </div>
-                    </li>
-                    <li>
-						<div class="mb-2">
-							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
-                        </div>
-                    </li>
-					<li>
-						<div class="mb-2">
-							<i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Detached</span>
-                        </div>
-                    </li>
-				</ul>
-                <div class="align-bottom">
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Lihat Pesanan</button>
-                    </form>
-                </div>
-			</div>
+            <div class="container">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="">Total Harga</label>
+                        <input type="number" value="0" class="form-control" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-block">Checkout</button>
+                    <div class="scroll">
+                        <ul class="list-unstyled" data-link="menu" id="pesanan"></ul>
+                    </div>
+                </form>
+            </div>
         </div>
 	</div>
 @endsection
@@ -54,8 +42,8 @@
 @section('content')
             <div class="container-fluid disable-text-selection">
                 <div class="alert alert-success">
-                    @auth('buyer') 
-                        <div>Selamat Datang {{ Auth::guard('buyer')->user()->name }} Silahkan Memesan Di Daftar Menu Yang Tersedia!!</div>
+                    @auth('user') 
+                        <div>Selamat Datang {{ Auth::guard('user')->user()->name }} Silahkan Memesan Di Daftar Menu Yang Tersedia!!</div>
                     @endauth
                 </div>
                 <div class="row">
@@ -174,9 +162,9 @@
                                         @endif
                                     </a>
                                     @if ($product->created_at->format('m, y') == date('m, y'))
-                                    <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>
+                                        <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>
                                     @elseif ("a" == "a")
-                                    <span class="badge badge-pill badge-secondary position-absolute badge-top-left">TRENDING</span>
+                                        <span class="badge badge-pill badge-secondary position-absolute badge-top-left">TRENDING</span>
                                     @endif
 
                                 </div>
@@ -192,7 +180,7 @@
                                                 </div>
                                             </div>
                                             <footer>
-                                                <a class="btn btn-primary btn-block mb-1" href="javascript:void(0)" id="addtocart" data-id="{{ $product->id }}"><i class="iconsminds-add-cart"></i>Add To cart </a>
+                                                <a class="btn btn-primary btn-block mb-1" href="javascript:void(0)" id="addtocart" data-id="{{ $product->id }}" data-name="{{ $product->nama_product }}" data-price="{{ $product->price }}"><i class="iconsminds-add-cart"></i>Add To cart </a>
                                             </footer>
                                         </div>
                                     </div>
@@ -205,28 +193,66 @@
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+    let id = ""
+
     $(document).on('click', '#addtocart', function(e) {
         let getid = e.currentTarget.dataset.id;
-        let getbuyer = e.currentTarget.dataset.buyer;
-        let getenskripsi = e.currentTarget.dataset.encripsi_token;
+        let name = e.currentTarget.dataset.name;
+        let price = e.currentTarget.dataset.price;
 
-        $.ajax({
-            type: 'POST',
-            url: '/buyer/addtocart',
-            data: {
-                "_token": "{{ csrf_token() }}",
-                id: getid,
-                buyer: getbuyer,
-                enskripsi: getenskripsi
-            },
-            async: false,
-            dataType: 'json',
-            success: function(response) {
-                alert(response.message)
-            },
-            error: function(response) {
-                console.log(response)
+        var list = `
+                    <div class="form-group mb-2">
+                        <div class="container">
+                            <div class="row">
+                                <label for="" class="col-md-6">`+name+`</label>
+                                <p class="col-md-6" id="price">`+price+`</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="text-center" id="count">
+                                <button type="button" class="btn btn-primary btn-xs default" data-id="`+getid+`" id="kurang">-</button>
+                                <input type="number" class="col-md-4 text-center" value="1" id="`+getid+`" readonly>
+                                <button type="button" class="btn btn-primary btn-xs default" data-id="`+getid+`" id="tambah">+</button>
+                            </div>
+                        </div>
+                    </div>`
+        
+        let status = true
+        for (let i = 0; i < id.length; i++) {
+            if (id[i] == getid) {
+                // console.log(id[i])
+                status = false
+                let jumlah = $('#'+getid+'').val()
+                jumlah++
+                $('#'+getid+'').val(jumlah)
+                break
             }
-        });
+        }
+        
+        if (status == true) {
+            $('#pesanan').append(list)
+            id += getid
+        }
+        let harga = $('#price').text()
+    })
+
+    $(document).on('click', '#tambah', function(e){
+        let getid = e.currentTarget.dataset.id;
+        let jumlah = $('#'+getid+'').val()
+        jumlah++
+        $('#'+getid+'').val(jumlah)
+    })
+
+    $(document).on('click', '#kurang', function(e){
+        let getid = e.currentTarget.dataset.id;
+        let jumlah = $('#'+getid+'').val()
+        jumlah--
+        $('#'+getid+'').val(jumlah)
+    })
+
+    $(document).on('change', '#price', function (){
+        $('#price').each(function () {
+            console.log($(this).text())
+        })
     })
 </script>

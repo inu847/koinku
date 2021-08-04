@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Umkm;
-use App\Models\Buyer;
+use App\Models\Roles;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    // BUYER AUTHENTICATED
     public function todoLogin()
     {
-        if (Auth::guard('umkm')->check() == true) {
+        if (Auth::guard('user')->check() == true) {
             return redirect()->back();
         }else {
             return view('auth.login');
@@ -24,19 +25,19 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
-        $umkm = $request->all();
-        unset($umkm['_token']);
+        $user = $request->all();
+        unset($user['_token']);
 
-        if(Auth::guard('umkm')->attempt($umkm)){
-            return redirect()->route('dashboard');
+        if(Auth::guard('user')->attempt($user)){
+            return redirect()->route('home');
         }else{
-            return "Failed";
+            return redirect()->back()->with('status', 'password atau username salah!!');
         }
     }
 
     public function logout()
     {
-        $user = Auth::guard('umkm');
+        $user = Auth::guard('user');
         $user->logout();
 
         return redirect()->route('home');
@@ -44,7 +45,7 @@ class AuthController extends Controller
 
     public function todoRegistrasi()
     {
-        if (Auth::guard('umkm')->check() == true) {
+        if (Auth::guard('user')->check() == true) {
             return redirect()->back();
         }else {
             return view('auth.register');
@@ -56,6 +57,32 @@ class AuthController extends Controller
         \Validator::make($request->all(), [
             'name' => 'required', 'string', 'max:255',
             'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
+            'phone' => 'required', 'string', 'min:6', 'max:255',
+            'password' => 'required', 'string', 'min:8', 'confirmed',
+        ])->validate();
+
+        $new_user = new User;
+        $new_user->name = $request->get('name');
+        $new_user->email = $request->get('email');
+        $new_user->phone = "+62".$request->get('phone');
+        $new_user->status = "active";
+        $new_user->password = \Hash::make($request->get('password'));
+        $new_user->save();
+        
+        $new_role = new Roles;
+        $new_role->role = 'buyer';
+        $new_role->user_id = $new_user->id;
+        $new_role->save();
+
+        return redirect()->route('login')->with('status', 'Create Akun Success!! Prosess memakan waktu paling lama 2x24, cek secara berkala email kamu!');
+    }
+
+    // DAFTAR UMKM
+    public function registrasiUmkm(Request $request)
+    {
+        \Validator::make($request->all(), [
+            'name' => 'required', 'string', 'max:255',
+            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
             'nama_toko' => 'required', 'string', 'min:4', 'max:255',
             'phone' => 'required', 'string', 'min:6', 'max:255',
             'file_penunjang' => 'file|image|mimes:jpeg,png,jpg,pdf,docx',
@@ -63,7 +90,7 @@ class AuthController extends Controller
             'password' => 'required', 'string', 'min:8', 'confirmed',
         ])->validate();
 
-        $new_user = new Umkm;
+        $new_user = new User;
         $new_user->username = $request->get('name');
         $new_user->email = $request->get('email');
         $new_user->nama_umkm = $request->get('nama_toko');
@@ -81,68 +108,5 @@ class AuthController extends Controller
         $new_user->save();
         
         return redirect()->route('login')->with('status', 'Create Akun Success!!');
-    }
-
-    // BUYER AUTHENTICATED
-    public function todoLoginBuyer()
-    {
-        if (Auth::guard('buyer')->check() == true) {
-            return redirect()->back();
-        }else {
-            return view('auth.loginBuyer');
-        }
-    }
-
-    public function loginBuyer(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-        $umkm = $request->all();
-        unset($umkm['_token']);
-
-        if(Auth::guard('buyer')->attempt($umkm)){
-            return redirect()->route('home');
-        }else{
-            return "Failed";
-        }
-    }
-
-    public function logoutBuyer()
-    {
-        $user = Auth::guard('buyer');
-        $user->logout();
-
-        return redirect()->route('home');
-    }
-
-    public function todoRegistrasiBuyer()
-    {
-        if (Auth::guard('umkm')->check() == true) {
-            return redirect()->back();
-        }else {
-            return view('auth.registerBuyer');
-        }
-    }
-
-    public function registrasiBuyer(Request $request)
-    {
-        \Validator::make($request->all(), [
-            'name' => 'required', 'string', 'max:255',
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-            'phone' => 'required', 'string', 'min:6', 'max:255',
-            'password' => 'required', 'string', 'min:8', 'confirmed',
-        ])->validate();
-
-        $new_user = new Buyer;
-        $new_user->name = $request->get('name');
-        $new_user->email = $request->get('email');
-        $new_user->phone = "+62".$request->get('phone');
-        $new_user->status = "active";
-        $new_user->password = \Hash::make($request->get('password'));
-        $new_user->save();
-        
-        return redirect()->route('login')->with('status', 'Create Akun Success!! Prosess memakan waktu paling lama 2x24, cek secara berkala email kamu!');
     }
 }

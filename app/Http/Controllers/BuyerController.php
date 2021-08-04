@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Umkm;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,19 +19,19 @@ class BuyerController extends Controller
 
     public function getUmkm(Request $request)
     {
-        $user = Umkm::get();
+        $user = User::get();
         $keywoard = $request->get('keyword');
 
         if ($keywoard) {
-            $user = Umkm::where('nama_umkm', 'LIKE', "%$keywoard%")->paginate(50);
+            $user = User::where('nama_umkm', 'LIKE', "%$keywoard%")->paginate(50);
         }
         return view('buyer.index', ['user' => $user]);
     }
 
     public function shoping($id)
     {
-        $user = Umkm::findOrFail($id);
-        $products = Product::where('umkm_id', $user->id)->where('status', 'publish')->paginate(30);
+        $user = User::findOrFail($id);
+        $products = Product::where('user_id', $user->id)->where('status', 'publish')->paginate(30);
         // dd($products);
         return view('buyer.belanja', ['user' => $user, 'products' => $products]);
     }

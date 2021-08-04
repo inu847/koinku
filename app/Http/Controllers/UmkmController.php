@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,20 +16,20 @@ class UmkmController extends Controller
 
     public function todoSetting()
     {
-        $user = Auth::guard('umkm')->user();
+        $user = Auth::guard('user')->user();
         // dd($user);
         return view('umkm.account', ['user' => $user]);
     }
 
     public function setting(Request $request)
     {
-        $user = Auth::guard('umkm')->user();
-        $user->username = $request->get('username');
-        $user->username = $request->get('username');
+        $user = User::findOrFail(Auth::guard('user')->user()->id);
+        $user->name = $request->get('username');
+        // $user->username = $request->get('username');
         $user->tanggal_lahir = $request->get('tanggal_lahir');
         // $user->profil = $request->get('profil');
         $user->alamat = json_encode($request->get('alamat'));
-        // dd($request->all());
+
         $user->save();
 
         return redirect()->back()->with('status', 'Perubahan akun berhasil!!');
@@ -36,7 +37,7 @@ class UmkmController extends Controller
 
     public function gotoProduct()
     {
-        $products = Auth::guard('umkm')->user()->product;
+        $products = Auth::guard('user')->user()->product;
 
         return view('umkm.product', ['products' => $products]);
     }
@@ -66,14 +67,14 @@ class UmkmController extends Controller
         }
         $new_product->price = $request->get('price');
         $new_product->status = "publish";
-        $new_product->umkm_id = Auth::guard('umkm')->user()->id;
+        $new_product->user_id = Auth::guard('user')->user()->id;
         $new_product->save();
         return redirect()->route('manage-product.index')->with('status', 'Create Product Success!!');
     }
 
     public function gotoProductShow($id)
     {
-        $prod = Product::where('umkm_id', Auth::guard('umkm')->user()->product)->where('id', $id);
+        $prod = Product::where('user_id', Auth::guard('user')->user()->product)->where('id', $id);
         if ($prod) {
             $product = Product::findOrFail($id);
             return view('umkm.showProduct', ['product' => $product]);
@@ -82,7 +83,7 @@ class UmkmController extends Controller
     
     public function gotoProductEdit($id)
     {
-        $prod = Product::where('umkm_id', Auth::guard('umkm')->user()->product)->where('id', $id);
+        $prod = Product::where('user_id', Auth::guard('user')->user()->product)->where('id', $id);
         if ($prod) {
             $product = Product::findOrFail($id);
             return view('umkm.editProduct', ['product' => $product]);
@@ -123,7 +124,7 @@ class UmkmController extends Controller
             $edit_product->status = "publish";
         }
 
-        $edit_product->umkm_id = Auth::guard('umkm')->user()->id;
+        $edit_product->user_id = Auth::guard('user')->user()->id;
         $edit_product->save();
 
         return redirect()->route('manage-product.index')->with('status', 'Update Product Success!!');
@@ -131,7 +132,7 @@ class UmkmController extends Controller
     
     public function gotoProductDestroy($id)
     {
-        $prod = Product::where('umkm_id', Auth::guard('umkm')->user()->product)->where('id', $id);
+        $prod = Product::where('user_id', Auth::guard('user')->user()->product)->where('id', $id);
         if ($prod) {
             $product = Product::findOrFail($id);
             $product->delete();

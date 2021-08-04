@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-warning">
-                    Selamat Datang {{Auth::guard('umkm')->user()->username}}
+                    Selamat Datang {{Auth::guard('user')->user()->name}}
                 </div>
             </div>
             

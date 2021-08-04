@@ -28,7 +28,7 @@
                                 {{session('status')}}
                             </div>
                         @endif
-                        <h6 class="mb-4">Login Umkm</h6>
+                        <h6 class="mb-4">Login</h6>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
@@ -69,7 +69,7 @@
 
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <a class="btn btn-danger btn-block" href="{{ route('todoRegistrasiBuyer') }}">Register</a>
+                                    <a class="btn btn-danger btn-block" href="{{ route('todoRegistrasi') }}">Register</a>
                                 </div>
                                 <div class="col-md-6">
                                     <button class="btn btn-primary btn-block" type="submit">LOGIN</button>

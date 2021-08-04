@@ -23,8 +23,8 @@ class CreateProductsTable extends Migration
             $table->string("price");
             $table->enum("status", ["publish", "archive"]);
             // Relationship one to many
-            $table->unsignedBigInteger("umkm_id");
-            $table->foreign("umkm_id")->references("id")->on("umkms")->onDelete('cascade');
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();
         });
     }

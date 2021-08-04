@@ -112,23 +112,20 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
                     <i class="simple-icon-size-actual"></i>
                 </button>
-
             </div>
 
-
-            @auth('umkm')
+            @auth('user')
                 <div class="user d-inline-block">
                     <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <span class="name">{{ Auth::guard('umkm')->user()->username }}</span>
+                        <span class="name">{{ Auth::guard('user')->user()->name }}</span>
                         <span>
-                            @if (Auth::guard('umkm')->user()->profil)
-                                <img alt="Profile Picture" src="{{asset('storage/'. Auth::guard('umkm')->user()->profil)}}"/>
+                            @if (Auth::guard('user')->user()->profil)
+                                <img alt="Profile Picture" src="{{asset('storage/'. Auth::guard('user')->user()->profil)}}"/>
                             @else 
                                 <img alt="Profile Picture" src="{{ asset('img/image-not-found.png')}}" />
                             @endif
@@ -149,38 +146,9 @@
                     </div>
                 </div>
             @else
-                @auth('buyer')
-                    <div class="user d-inline-block">
-                        <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <span class="name">{{ Auth::guard('buyer')->user()->name }}</span>
-                            <span>
-                                @if (Auth::guard('buyer')->user()->profil)
-                                    <img alt="Profile Picture" src="{{asset('storage/'. Auth::guard('buyer')->user()->profil)}}"/>
-                                @else 
-                                    <img alt="Profile Picture" src="{{ asset('img/image-not-found.png')}}" />
-                                @endif
-                            </span>
-                        </button>
-
-                        <div class="dropdown-menu dropdown-menu-right mt-3">
-                            <a class="dropdown-item" href="#">Account</a>
-                            <a class="dropdown-item" href="#">Features</a>
-                            <a class="dropdown-item" href="#">History</a>
-                            <a class="dropdown-item" href="#">Support</a>
-                            <a class="dropdown-item" href="{{ route('logout') }}" 
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();" >Sign out</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>                            
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('todoLoginBuyer') }}" class="text-sm mr-1">Log in</a>
-                    <span>|</span>
-                    <a href="{{ route('todoRegistrasi') }}" class="ml-1 text-sm mr-2">Register</a>
-                @endauth
+                <a href="{{ route('todoLogin') }}" class="text-sm mr-1">Log in</a>
+                <span>|</span>
+                <a href="{{ route('todoRegistrasi') }}" class="ml-1 text-sm mr-2">Register</a>
             @endauth
         </div>
     </nav>

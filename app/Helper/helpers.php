@@ -2,6 +2,7 @@
 
     function province($alamat)
     {
+        
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/provinsi/'.$alamat[0],
@@ -33,6 +34,7 @@
         ));
         $response = curl_exec($curl);
         curl_close($curl);
+        // dd(json_decode($response)->nama);
         return json_decode($response)->nama;
     }
 

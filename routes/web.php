@@ -25,15 +25,7 @@ Route::get('login', [AuthController::class, 'todoLogin'])->name('todoLogin');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('register', [AuthController::class, 'todoRegistrasi'])->name('todoRegistrasi');
-Route::post('register', [AuthController::class, 'registrasi'])->name('registrasi.umkm');
-
-Route::prefix('buyer')->group(function () {
-    Route::get('login', [AuthController::class, 'todoLoginBuyer'])->name('todoLoginBuyer');
-    Route::post('login', [AuthController::class, 'loginBuyer'])->name('loginBuyer');
-    Route::get('logoutBuyer', [AuthController::class, 'logoutBuyer'])->name('logoutBuyer');
-    Route::get('registrasi', [AuthController::class, 'todoRegistrasiBuyer'])->name('todoRegistrasiBuyer');
-    Route::post('registrasi', [AuthController::class, 'registrasiBuyer'])->name('registrasiBuyer');
-});
+Route::post('register', [AuthController::class, 'registrasi'])->name('registrasi');
 
 Route::prefix('umkm')->middleware('umkm')->group(function () {
     // DASHBOARD
