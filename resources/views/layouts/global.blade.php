@@ -190,7 +190,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('manage-order.index') }}">
                             <i class="iconsminds-shopping-cart"></i> 
                             <span>Manage Order</span>
                         </a>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\InvestasiController;
+use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\UmkmController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BuyerController::class, 'index'])->name('home');
 Route::get('/shoping', [BuyerController::class, 'getUmkm'])->name('filterUmkm');
 Route::get('/shoping/{id}', [BuyerController::class, 'shoping'])->name('shoping');
+Route::post('/checkout/{id}', [BuyerController::class, 'checkout'])->name('checkout');
 
 Route::get('login', [AuthController::class, 'todoLogin'])->name('todoLogin');
 Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -48,6 +50,9 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::put('product/update/{id}', [UmkmController::class, 'gotoProductUpdate'])->name('manage-product.update');
     Route::post('product/delete/{id}', [UmkmController::class, 'gotoProductDestroy'])->name('manage-product.destroy');
 
+    // MANAGE ORDER
+    Route::get('manage-order', [ManageOrderController::class, 'index'])->name('manage-order.index');
+    
     // INVESTASI
     Route::get('investasi', [InvestasiController::class, 'index'])->name('investasi.index');
 });

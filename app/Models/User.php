@@ -25,4 +25,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Roles');
     }
+
+    public function order()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 }

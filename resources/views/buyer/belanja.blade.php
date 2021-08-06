@@ -5,11 +5,10 @@
 @endsection
 
 @section('body')
+    <body id="app-container" class="menu-main-hidden show-spinner">
+@endsection
 
-<body id="app-container" class="menu-main-hidden show-spinner">
-    @endsection
-
-    @section('menu')
+@section('menu')
     <div class="menu">
         <div class="main-menu">
             <div class="scroll">
@@ -24,11 +23,11 @@
         </div>
         <div class="sub-menu">
             <div class="container">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('checkout', $user->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="">Total Harga</label>
-                        <input type="number" value="0" id="totalPrice" class="form-control" readonly>
+                        <input type="number" value="0" id="totalPrice" class="form-control" name="total" readonly>
                     </div>
                     <button type="submit" class="btn btn-danger btn-block">Checkout</button>
                     <div class="scroll">
@@ -38,7 +37,7 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection
 
     @section('content')
     <div class="container-fluid disable-text-selection">
@@ -215,7 +214,8 @@
                         <div class="row">
                             <div class="text-center" id="count">
                                 <button type="button" class="btn btn-primary btn-xs default" onclick="changePrice(this)" data-price="` + price + `"  data-id="` + getid + `" id="kurang">-</button>
-                                <input type="number" class="col-md-4 text-center" value="1" id="` + getid + `" readonly>
+                                <input type="number" class="col-md-4 text-center" value="1" id="` + getid + `" name="quantity[]" readonly>
+                                <input type="hidden" class="col-md-4 text-center" id="idO" value="`+getid+`" name="product_id[]" readonly>
                                 <button type="button" class="btn btn-primary btn-xs default" onclick="changePrice(this)" data-price="` + price + `" data-id="` + getid + `" id="tambah">+</button>
                             </div>
                         </div>
@@ -237,25 +237,6 @@
                 id += getid
             }
             let harga = $('#price').text()
-        })
-        // $(document).on('click', '#tambah', function(e) {
-        //     let getid = e.currentTarget.dataset.id;
-        //     let jumlah = $('#' + getid + '').val()
-        //     jumlah++
-        //     $('#' + getid + '').val(jumlah)
-        // })
-        // $(document).on('click', '#kurang', function(e) {
-        //     let getid = e.currentTarget.dataset.id;
-        //     let jumlah = $('#' + getid + '').val()
-        //     if (jumlah > 0) {
-        //         jumlah--
-        //         $('#' + getid + '').val(jumlah)
-        //     }
-        // })
-        $(document).on('change', '#price', function() {
-            $('#price').each(function() {
-                console.log($(this).text())
-            })
         })
 
         function changePrice(e) {
@@ -279,4 +260,4 @@
             }
             prevTotal.val(kalk)
         }
-    </script>
+</script>
