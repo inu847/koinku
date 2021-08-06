@@ -81,31 +81,28 @@ class AuthController extends Controller
     public function registrasiUmkm(Request $request)
     {
         \Validator::make($request->all(), [
-            'name' => 'required', 'string', 'max:255',
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
             'nama_toko' => 'required', 'string', 'min:4', 'max:255',
-            'phone' => 'required', 'string', 'min:6', 'max:255',
             'file_penunjang' => 'file|image|mimes:jpeg,png,jpg,pdf,docx',
             'ktp' => 'file|image|mimes:jpeg,jpg',
             'password' => 'required', 'string', 'min:8', 'confirmed',
         ])->validate();
 
-        $new_user = new User;
-        $new_user->username = $request->get('name');
-        $new_user->email = $request->get('email');
-        $new_user->nama_umkm = $request->get('nama_toko');
-        $new_user->phone = "+62".$request->get('phone');
-        $new_user->status = "inactive";
+        $upgrade_user = Roles::findOrFail(Auth::guard('user')->user()->id);
+        $upgrade_user->nama_umkm = $request->get('nama_toko');
+        $upgrade_user->status_upgrade = "process";
         if($request->file('file_penunjang')){
             $file = $request->file('file_penunjang')->store('file_penunjangs', 'public');
-            $new_user->file_umkm = $file;
+            $upgrade_user->file_umkm = $file;
         }
+
         if($request->file('ktp')){
             $file = $request->file('ktp')->store('ktps', 'public');
-            $new_user->ktp = $file;
+            $upgrade_user->ktp = $file;
         }
-        $new_user->password = \Hash::make($request->get('password'));
-        $new_user->save();
+
+        \Hash::check($request->get('password'), Auth::guard('user')->user()->password);
+        $upgrade_user->user_id = Auth::guard('user')->user()->id;
+        $upgrade_user->save();
         
         return redirect()->route('login')->with('status', 'Create Akun Success!!');
     }

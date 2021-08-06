@@ -20,4 +20,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Product');
     }
+
+    public function role()
+    {
+        return $this->hasOne('App\Models\Roles');
+    }
 }

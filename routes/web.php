@@ -28,6 +28,10 @@ Route::get('register', [AuthController::class, 'todoRegistrasi'])->name('todoReg
 Route::post('register', [AuthController::class, 'registrasi'])->name('registrasi');
 
 Route::prefix('umkm')->middleware('umkm')->group(function () {
+    // UPGRADE BUYER TO SELLER
+    Route::get('register', [AuthController::class, 'todoRegistrasi'])->name('todoRegistrasi');
+    Route::post('register', [AuthController::class, 'registrasiUmkm'])->name('registrasiUmkm');
+
     // DASHBOARD
     Route::get('dashboard', [UmkmController::class, 'dashboard'])->name('dashboard');
 

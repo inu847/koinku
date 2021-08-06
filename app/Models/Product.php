@@ -11,6 +11,6 @@ class Product extends Model
 
     function Umkm()
     {
-        return $this->belongsTo('App\Models\Umkm');
+        return $this->belongsTo('App\Models\User');
     }
 }
