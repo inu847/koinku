@@ -1,6 +1,8 @@
 <?php
 
-    function province($alamat)
+use App\Models\Product;
+
+function province($alamat)
     {
         
         $curl = curl_init();
@@ -74,4 +76,10 @@
         return json_decode($response)->nama;
     }
 
+    function productId($id)
+    {
+        $product = Product::findOrFail($id);
+        
+        return $product;
+    }
 ?>

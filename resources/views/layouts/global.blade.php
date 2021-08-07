@@ -202,7 +202,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('gadai.index') }}">
                             <i class="iconsminds-scale"></i>
                             <span>Pegadaian</span>
                         </a>

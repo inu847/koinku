@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\GadaiController;
 use App\Http\Controllers\InvestasiController;
 use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\UmkmController;
@@ -31,7 +32,7 @@ Route::post('register', [AuthController::class, 'registrasi'])->name('registrasi
 
 Route::prefix('umkm')->middleware('umkm')->group(function () {
     // UPGRADE BUYER TO SELLER
-    Route::get('register', [AuthController::class, 'todoRegistrasi'])->name('todoRegistrasi');
+    Route::get('register', [AuthController::class, 'todoRegistrasiUmkm'])->name('todoRegistrasiUmkm');
     Route::post('register', [AuthController::class, 'registrasiUmkm'])->name('registrasiUmkm');
 
     // DASHBOARD
@@ -55,4 +56,7 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     
     // INVESTASI
     Route::get('investasi', [InvestasiController::class, 'index'])->name('investasi.index');
+
+    // PEGADAIAN
+    Route::get('pegadaian', [GadaiController::class, 'index'])->name('gadai.index');
 });

@@ -50,6 +50,7 @@ class BuyerController extends Controller
         $new_order->quantity = json_encode($request->get('quantity'));
         $new_order->total = $request->get('total');
         $new_order->user_id = $id;
+        $new_order->buyer_id = Auth::guard('user')->user()->id;
         $new_order->save();
 
         return redirect()->back()->with('status', "order success!!");

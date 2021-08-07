@@ -111,33 +111,42 @@
             </div>
         </div>
         @foreach ($orders as $order)
-            {{-- <input type="hidden" value="{{$get_order = Auth::user()->orderId->where('buyer_id', $order->id)->first()}}"> --}}
-            {{-- <input type="hidden" value="{{$prod = \App\Models\Product::find($get_order->prod_id)}}">        --}}
             <a href="#">
-                <div class="card d-flex flex-row mb-3">
-                    <img src="" alt="" class="list-thumbnail responsive border-0 card-img-left" style="width: 150px;"/>
-                    <div class="pl-2 d-flex flex-grow-1 min-width-zero">
-                        <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                            <p class="list-item-heading mb-0 truncate w-15 w-sm-50">{{ Str::ucfirst($order->buyer) }}</p>
-                            <p class="mb-0 text-muted text-small w-15 w-sm-50">{{$order->total_quantity}} Pcs</p>
-                            <p class="mb-0 text-muted text-small w-15 w-sm-50">Rp.{{$order->subtotal}}</p>
-                            <p class="mb-0 text-muted text-small w-15 w-sm-50">{{$order->created_at->diffForHumans()}}</p>
-                            <div class="w-15 w-sm-50">
-                                @if ( $order->status == 'process' )
-                                    <span class="badge badge-pill badge-primary">{{ Str::upper($order->status) }}</span>
-                                @elseif ($order->status == 'success')
-                                    <span class="badge badge-pill badge-success">{{ Str::upper($order->status) }}</span>
-                                @elseif ($order->status == 'failed')
-                                    <span class="badge badge-pill badge-danger">{{ Str::upper($order->status) }}</span>
-                                @endif
-                            </div>
-                            <form action="" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <button type="submit" class="btn btn-success"><i class="simple-icon-check"></i></button>
-                            </form>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <div class="float-left">
+                            <h3 class="mt-4">Nama Pembeli : {{App\Models\User::findOrFail($order->buyer_id)->name}}</h3>
+                        </div>
+                        <div class="float-right">
+                            <button class="btn btn-primary mt-4">Proses Order</button>
                         </div>
                     </div>
-
+                    {{-- <hr> --}}
+                    @foreach (json_decode($order->product_id) as $key => $prod)
+                        <div class="card mb-2">
+                            <div class="d-flex flex-grow-1 min-width-zero">
+                                <img src="{{ asset('storage/'.productId($prod)->images) }}" alt="" class="list-thumbnail responsive border-0 card-img-left" style="width: 150px;"/>
+                                <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                                    <p class="mb-0 text-muted text-small w-15 w-sm-50">{{ json_decode($order->quantity)[$key] }} Pcs</p>
+                                    <p class="mb-0 text-muted text-small w-15 w-sm-50">{{$order->created_at->diffForHumans()}}</p>
+                                    <div class="w-15 w-sm-50">
+                                        @if ( $order->status == 'process' )
+                                            <span class="badge badge-pill badge-primary">{{ Str::upper($order->status) }}</span>
+                                        @elseif ($order->status == 'success')
+                                            <span class="badge badge-pill badge-success">{{ Str::upper($order->status) }}</span>
+                                        @elseif ($order->status == 'failed')
+                                            <span class="badge badge-pill badge-danger">{{ Str::upper($order->status) }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <strong>Total Harga : Rp.{{ $order->total }}</strong>
+                        </div>
+                    </div>
                 </div>
             </a>
         @endforeach
