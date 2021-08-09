@@ -59,4 +59,6 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
 
     // PEGADAIAN
     Route::get('pegadaian', [GadaiController::class, 'index'])->name('gadai.index');
+    Route::get('pegadaian/create/{id}', [GadaiController::class, 'create'])->name('gadai.create');
+    Route::post('pegadaian/storeGadai/{id}', [GadaiController::class, 'storeGadai'])->name('gadai.storeGadai');
 });

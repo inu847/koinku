@@ -15,6 +15,13 @@ class CreateGadaisTable extends Migration
     {
         Schema::create('gadais', function (Blueprint $table) {
             $table->id();
+            $table->enum('paket', ['1', '2', '3']);
+            $table->string('ktp');
+            $table->string('jaminan');
+            $table->string('keterangan');
+            $table->enum('status', ['process', 'gadai', 'lunas'])->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
