@@ -56,6 +56,7 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     
     // INVESTASI
     Route::get('investasi', [InvestasiController::class, 'index'])->name('investasi.index');
+    Route::post('investasi/investPerusahaan/{id}', [InvestasiController::class, 'investPerusahaan'])->name('investasi.investPerusahaan');
 
     // PEGADAIAN
     Route::get('pegadaian', [GadaiController::class, 'index'])->name('gadai.index');

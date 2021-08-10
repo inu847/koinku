@@ -23,7 +23,7 @@
                                     <i class="iconsminds-billing text-white align-text-bottom d-inline-block"></i>
                                 </div>
                                 <div>
-                                    <h1 class="text-white">Rp.60,000</h1>
+                                    <h1 class="text-white">Rp.{{ Auth::guard('user')->user()->eMoney->emoney }}</h1>
                                 </div>
                             </div>
                         </div>

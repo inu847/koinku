@@ -184,7 +184,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('dashboard') }}">
                             <i class="simple-icon-pie-chart"></i>
                             <span>Dasboard</span>
                         </a>
@@ -211,15 +211,6 @@
                         <a href="{{ route('investasi.index') }}">
                             <i class="iconsminds-financial"></i>
                             <span>Investasi</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            
-                            <i class="simple-icon-bubbles"></i> 
-                            <span>Chat 
-                                <span class="count">5</span>
-                            </span>
                         </a>
                     </li>
                     <li>

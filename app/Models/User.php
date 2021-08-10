@@ -35,4 +35,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Gadai');
     }
+
+    public function investasi()
+    {
+        return $this->hasOne('App\Models\Investasi');
+    }
+
+    public function eMoney()
+    {
+        return $this->hasOne('App\Models\Emoney');
+    }
 }

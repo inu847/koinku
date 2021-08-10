@@ -15,8 +15,7 @@ class CreateInvestasisTable extends Migration
     {
         Schema::create('investasis', function (Blueprint $table) {
             $table->id();
-            $table->string('perusahaan');
-            $table->string('invest');
+            $table->string('reksa_dana');
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();
