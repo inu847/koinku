@@ -202,6 +202,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('rekpen.index') }}">
+                            <i class="iconsminds-wallet"></i>
+                            <span>Rekpen</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('gadai.index') }}">
                             <i class="iconsminds-scale"></i>
                             <span>Pegadaian</span>

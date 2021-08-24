@@ -5,6 +5,7 @@ use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\GadaiController;
 use App\Http\Controllers\InvestasiController;
 use App\Http\Controllers\ManageOrderController;
+use App\Http\Controllers\RekpenController;
 use App\Http\Controllers\UmkmController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,4 +63,9 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::get('pegadaian', [GadaiController::class, 'index'])->name('gadai.index');
     Route::get('pegadaian/create/{id}', [GadaiController::class, 'create'])->name('gadai.create');
     Route::post('pegadaian/storeGadai/{id}', [GadaiController::class, 'storeGadai'])->name('gadai.storeGadai');
+    
+    // REKPEN
+    Route::get('rekpen', [RekpenController::class, 'index'])->name('rekpen.index');
+    Route::get('rekpen/create', [RekpenController::class, 'create'])->name('rekpen.create');
+    Route::post('rekpen/pembayaran', [RekpenController::class, 'bayar'])->name('rekpen.bayar');
 });
