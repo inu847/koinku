@@ -28,7 +28,8 @@ class RekpenController extends Controller
         // $rekpen->token = Str::random(60);
         $rekpen->user_id = Auth::guard('user')->user()->id;
         $rekpen->save();
-
+        
+        dd($rekpen->id);
         \Midtrans\Config::$serverKey = 'SB-Mid-server-1gMTDRgG6CVPjAKkhH9wPvqy';
         \Midtrans\Config::$isProduction = false;
         \Midtrans\Config::$isSanitized = true;

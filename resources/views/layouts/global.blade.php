@@ -220,7 +220,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route('job.index') }}">
                             <i class="simple-icon-grid"></i> 
                             <span>Jobs</span>
                         </a>

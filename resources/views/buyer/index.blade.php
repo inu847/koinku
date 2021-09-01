@@ -22,8 +22,8 @@
 								</div>
 							</div>
 							<div>
-								@if (!$data->job)
-									<a href="#" class="btn btn-warning btn-sm mb-2">Lowongan Kerja</a>
+								@if ($data->job)
+									<a href="{{ route('viewJob', [$data->id]) }}" class="btn btn-warning btn-sm mb-2">Lowongan Kerja</a>
 								@endif
 								<div class="col-12 col-xs-6">
 									<div class="form-group mb-1">

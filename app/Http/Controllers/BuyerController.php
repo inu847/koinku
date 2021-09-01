@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -54,5 +55,12 @@ class BuyerController extends Controller
         $new_order->save();
 
         return redirect()->back()->with('status', "order success!!");
+    }
+
+    public function viewJob($id)
+    {
+        $jobs = User::findOrFail($id)->job;
+
+        return view('buyer.job', ['jobs' => $jobs]);
     }
 }

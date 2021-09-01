@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Emoney');
     }
+
+    public function job()
+    {
+        return $this->hasMany('App\Models\Job');
+    }
 }

@@ -21,16 +21,18 @@
                     <tr>
                         <th>No.</th>
                         <th>Transaksi</th>
-                        <th>Dibuat Pada</th>
+                        <th>Nominal</th>
                         <th>Status</th>
+                        <th>Transaksi Dengan</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
                         <td>Koi</td>
-                        <td>190</td>
-                        <td>On Proces</td>
+                        <td>1.900.000</td>
+                        <td><span class="badge badge-primary">On Proces</span></td>
+                        <td>Adi Nugroho</td>
                     </tr>
                 </tbody>
             </table>

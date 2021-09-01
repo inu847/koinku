@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\GadaiController;
 use App\Http\Controllers\InvestasiController;
+use App\Http\Controllers\JobsController;
 use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\RekpenController;
 use App\Http\Controllers\UmkmController;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BuyerController::class, 'index'])->name('home');
+Route::get('job/{id}', [BuyerController::class, 'viewJob'])->name('viewJob');
 Route::get('/shoping', [BuyerController::class, 'getUmkm'])->name('filterUmkm');
 Route::get('/shoping/{id}', [BuyerController::class, 'shoping'])->name('shoping');
 Route::post('/checkout/{id}', [BuyerController::class, 'checkout'])->name('checkout');
@@ -68,4 +70,13 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::get('rekpen', [RekpenController::class, 'index'])->name('rekpen.index');
     Route::get('rekpen/create', [RekpenController::class, 'create'])->name('rekpen.create');
     Route::post('rekpen/pembayaran', [RekpenController::class, 'bayar'])->name('rekpen.bayar');
+
+    // JOB
+    Route::get('job', [JobsController::class, 'index'])->name('job.index');
+    Route::get('job/create', [JobsController::class, 'create'])->name('job.create');
+    Route::get('job/{id}', [JobsController::class, 'show'])->name('job.show');
+    Route::get('job/edit/{id}', [JobsController::class, 'edit'])->name('job.edit');
+    Route::post('job/store', [JobsController::class, 'store'])->name('job.store');
+    Route::post('job/update/status', [JobsController::class, 'ubahStatus'])->name('job.status');
+    Route::post('job/delete', [JobsController::class, 'destroy'])->name('job.destroy');
 });
