@@ -35,15 +35,14 @@
                             <div class="glide__track" data-glide-el="track">
                                 <ul class="glide__slides">
                                     <li class="glide__slide">
+                                        <iframe class="responsive border-0 border-radius img-fluid mb-3" width="100%" height="100%" src="https://drive.google.com/file/d/1DE5k_Acj3u9xUyVwsuMKndszsNmbld6Y/preview"></iframe>
+                                    </li>
+                                    <li class="glide__slide">
                                         @if($product->images)
                                             <img src="{{asset('storage/'. $product->images)}}" alt="uploaded image" class="responsive border-0 border-radius img-fluid mb-3 rounded mx-auto d-block" />
                                         @else
                                             No avatar
                                         @endif
-                                    </li>
-                                    <li class="glide__slide">
-                                        <img alt="detail" src="{{ asset('img/napoleonshat.jpg')}}"
-                                            class="responsive border-0 border-radius img-fluid mb-3" />
                                     </li>
                                 </ul>
                             </div>
@@ -53,15 +52,14 @@
                             <div class="glide__track" data-glide-el="track">
                                 <ul class="glide__slides">
                                     <li class="glide__slide">
+                                        <iframe class="responsive border-0 border-radius img-fluid" src="https://drive.google.com/file/d/1DE5k_Acj3u9xUyVwsuMKndszsNmbld6Y/preview"></iframe>
+                                    </li>
+                                    <li class="glide__slide">
                                         @if($product->images)
                                             <img src="{{asset('storage/'. $product->images)}}" alt="uploaded image" class="responsive border-0 border-radius img-fluid" />
                                         @else
                                             No avatar
                                         @endif
-                                    </li>
-                                    <li class="glide__slide">
-                                        <img alt="thumb" src="{{asset('storage/'. $product->images)}}"
-                                            class="responsive border-0 border-radius img-fluid" />
                                     </li>
                                     
                                 </ul>

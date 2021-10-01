@@ -52,19 +52,23 @@ class UmkmController extends Controller
         \Validator::make($request->all(), [
             'nama_product' => 'required', 'string', 'max:255', 'min:2',
             'deskripsi' => 'required', 'string', 'max:255', 'min:8',
-            'stok' => 'required', 'max:1000',
-            'images' => 'file|image|mimes:jpeg,png,jpg',
+            'qty' => 'required', 'max:1000',
+            // 'images' => 'file|image|mimes:jpeg,png,jpg',
+            'images' => 'required', 'string', 'max:500', 'min:8',
+            'vidio' => 'required', 'string', 'max:500', 'min:8',
             'price' => 'required', 'max:20',
         ])->validate();
         
         $new_product = new Product();
         $new_product->nama_product = $request->get('nama_product');
         $new_product->deskripsi = $request->get('deskripsi');
-        $new_product->stok = $request->get('stok');
-        if($request->file('images')){
-            $file = $request->file('images')->store('product_images', 'public');
-            $new_product->images = $file;
-        }
+        $new_product->qty = $request->get('qty');
+        // if($request->file('images')){
+        //     $file = $request->file('images')->store('product_images', 'public');
+        //     $new_product->images = $file;
+        // }
+        $new_product->images = json_encode($request->get('images'));
+        $new_product->vidio = json_encode($request->get('vidio'));
         $new_product->price = $request->get('price');
         $new_product->status = "publish";
         $new_product->user_id = Auth::guard('user')->user()->id;

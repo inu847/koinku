@@ -111,26 +111,29 @@
             <div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-4">
                 <div class="card" style="height: 425px">
                     <div class="position-relative">
-                        <a href="Pages.Product.Detail.html">
-                            @if($product->images)
+                        <a href="{{ route('buyer.showprod', [$product->id])}}">
+                            <div class="side_view">
+                                <iframe src="{{ json_decode($product->images)[0]."/preview" }}" class="card-img-top" height="210" allow="autoplay"></iframe>
+                            </div>
+                            {{-- @if($product->images)
                             <div class="side_view">
                                 <img src="{{ asset('storage/'.$product->images ) }}" alt="Card image cap" class="card-img-top" height="210" />
                             </div>
                             @else
                                 No avatar
-                            @endif
+                            @endif --}}
                         </a>
                         @if ($product->created_at->format('m, y') == date('m, y'))
-                        <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>
+                            <span class="badge badge-pill badge-theme-1 position-absolute badge-top-left">NEW</span>
                         @elseif ("a" == "a")
-                        <span class="badge badge-pill badge-secondary position-absolute badge-top-left">TRENDING</span>
+                            <span class="badge badge-pill badge-secondary position-absolute badge-top-left">TRENDING</span>
                         @endif
 
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <a href="#">
+                                <a href="{{ route('buyer.showprod', [$product->id])}}">
                                     <p class="list-item-heading mb-4 pt-1" style="font-size: 20px;">{{ Str::limit($product->nama_product, 40) }}</p>
                                 </a>
                                 <div class="row">

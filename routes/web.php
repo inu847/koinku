@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BuyerController::class, 'index'])->name('home');
 Route::get('job/{id}', [BuyerController::class, 'viewJob'])->name('viewJob');
 Route::get('/shoping', [BuyerController::class, 'getUmkm'])->name('filterUmkm');
-Route::get('/shoping/{id}', [BuyerController::class, 'shoping'])->name('shoping');
+Route::get('/market/{name}', [BuyerController::class, 'shoping'])->name('shoping');
+Route::get('/product/{id}', [BuyerController::class, 'showProd'])->name('buyer.showprod');
 Route::post('/checkout/{id}', [BuyerController::class, 'checkout'])->name('checkout');
 
 Route::get('login', [AuthController::class, 'todoLogin'])->name('todoLogin');

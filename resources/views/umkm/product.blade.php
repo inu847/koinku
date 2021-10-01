@@ -17,7 +17,9 @@
         {{session('statusdel')}}
     </div>
 @endif
-
+<style>
+    
+</style>
 <div class="container-fluid library-app">
     <div class="row">
         <div class="col-12">
@@ -90,7 +92,8 @@
                             <a class="d-flex align-self-center" href="Apps.MediaLibrary.ViewImage.html">
                                 @if($product->images)
                                     <div class="side_view">
-                                        <img src="{{ asset('storage/'.$product->images)  }}" alt="uploaded image" class="list-media-thumbnail responsive border-0" />
+                                        <iframe frameborder="" src="{{ json_decode($product->images)[0]."/preview" }}" alt="uploaded image" class="list-media-thumbnail responsive border-0"></iframe>
+                                        {{-- <img src="{{ asset('storage/'.$product->images)  }}" alt="uploaded image" class="list-media-thumbnail responsive border-0" /> --}}
                                     </div>
                                 @else
                                     No avatar

@@ -48,14 +48,16 @@
                 </svg>
             </a>
             
-            <form action="#" class="ml-2">
-                <div class="input-group">
-                    <input placeholder="Search..." value="{{Request::get('keyword')}}" name="keyword" type="text" class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit" value="Filter">Button</button>
-                    </div>
-                </div> 
-            </form>
+            <div class="d-flex align-items-center navbar-left">
+                <form action="{{ route('filterUmkm')}}" class="ml-3">
+                    <div class="input-group">
+                        <input placeholder="Search..." value="{{Request::get('keyword')}}" name="keyword" type="text" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" value="Filter">Button</button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
    
         </div>
 

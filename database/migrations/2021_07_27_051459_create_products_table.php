@@ -17,9 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string("nama_product");
             $table->string("deskripsi", 5000);
-            $table->string("stok");
+            $table->string("qty");
             // product images
             $table->string("images");
+            $table->string("vidio");
             $table->string("price");
             $table->enum("status", ["publish", "archive"]);
             // Relationship one to many

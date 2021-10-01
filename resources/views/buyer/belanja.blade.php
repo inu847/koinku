@@ -152,11 +152,12 @@
             <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4">
                 <div class="card">
                     <div class="position-relative">
-                        <a href="Pages.Product.Detail.html">
+                        <a href="{{ route('buyer.showprod',[$product->id]) }}">
                             @if($product->images)
-                            <div class="side_view">
-                                <img src="{{ asset('storage/'.$product->images)}}" alt="Card image cap" class="card-img-top" style="height: 200px;" />
-                            </div>
+                                <div class="side_view">
+                                    <iframe alt="Card image cap" class="card-img-top" style="height: 200px;" src="{{ json_decode($product->images)[0]."/preview"}}"></iframe>
+                                    {{-- <img src="{{ asset('storage/'.$product->images)}}" alt="Card image cap" class="card-img-top" style="height: 200px;" /> --}}
+                                </div>
                             @else
                             No avatar
                             @endif
@@ -171,7 +172,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <a href="#">
+                                <a href="{{ route('buyer.showprod',[$product->id]) }}">
                                     <p class="list-item-heading mb-4 pt-1">{{ Str::limit($product->nama_product, 40) }}</p>
                                 </a>
                                 <div class="row">

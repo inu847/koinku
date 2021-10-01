@@ -8,7 +8,7 @@
 	@foreach ($user as $data)
 		@if (App\Models\Roles::where('user_id', $data->id)->first()->role == "super")
 			<div class="col-lg-12">
-				<a href="{{ route('shoping', [$data->id]) }}">
+				<a href="{{ route('shoping', [$data->nama_umkm]) }}">
 				{{-- <a data-toggle="modal" data-target="#exampleModalContent"> --}}
 					<div class="card mb-4 progress-banner" style="height: 120px;">
 						<div class="card-body justify-content-between d-flex flex-row align-items-center">

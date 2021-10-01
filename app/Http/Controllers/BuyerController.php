@@ -30,9 +30,10 @@ class BuyerController extends Controller
         return view('buyer.index', ['user' => $user]);
     }
 
-    public function shoping($id)
+    public function shoping($name)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('nama_umkm', $name)->first();
+        // dd($user->role->role);
         if ($user->role->role == 'super') {
             $products = Product::where('user_id', $user->id)->where('status', 'publish')->paginate(30);
             // dd($products);
@@ -62,5 +63,12 @@ class BuyerController extends Controller
         $jobs = User::findOrFail($id)->job;
 
         return view('buyer.job', ['jobs' => $jobs]);
+    }
+
+    public function showProd($id)
+    {
+        $product = Product::findOrFail($id);
+        
+        return view('buyer.showprod', ['product' => $product]);
     }
 }
