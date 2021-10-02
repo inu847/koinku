@@ -10,11 +10,12 @@
             <div class="col-12 col-md-10 mx-auto my-auto">
                 <div class="card auth-card">
                     <div class="position-relative image-side ">
-                        <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
+                        <p class=" text-white h2">When prosperity comes, do not use all of it</p>
+
                         <p class="white mb-0">
-                            Please use this form to register.
-                            <br>If you are a member, please
-                            <a href="#" class="white">login</a>.
+                            Application for selling goods directly or online, in which there are excellent features.
+                            <br> such as a guarantor account or a third party
+                            <br>  that guarantees your transactions.
                         </p>
                     </div>
                     <div class="form-side">
@@ -72,6 +73,7 @@
                                 @enderror
                             </label>
                             <div class="d-flex justify-content-end align-items-center">
+                                <a href="{{ route('login') }}" class="btn btn-danger btn-lg btn-shadow mr-2 white">Login</a>
                                 <button class="btn btn-primary btn-lg btn-shadow" type="submit">REGISTER</button>
                             </div>
                         </form>

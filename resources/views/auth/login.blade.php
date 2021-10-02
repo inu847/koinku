@@ -10,13 +10,12 @@
             <div class="col-12 col-md-10 mx-auto my-auto">
                 <div class="card auth-card">
                     <div class="position-relative image-side ">
-
-                        <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
+                        <p class=" text-white h2">When prosperity comes, do not use all of it</p>
 
                         <p class="white mb-0">
-                            Please use your credentials to login.
-                            <br>If you are not a member, please
-                            <a href="#" class="white">register</a>.
+                            Application for selling goods directly or online, in which there are excellent features.
+                            <br> such as a guarantor account or a third party
+                            <br>  that guarantees your transactions.
                         </p>
                     </div>
                     <div class="form-side">

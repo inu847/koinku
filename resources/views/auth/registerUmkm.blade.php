@@ -10,11 +10,12 @@
             <div class="col-12 col-md-10 mx-auto my-auto">
                 <div class="card auth-card">
                     <div class="position-relative image-side ">
-                        <p class=" text-white h2">MAGIC IS IN THE DETAILS</p>
+                        <p class=" text-white h2">When prosperity comes, do not use all of it</p>
+
                         <p class="white mb-0">
-                            Please use this form to register.
-                            <br>If you are a member, please
-                            <a href="#" class="white">login</a>.
+                            Application for selling goods directly or online, in which there are excellent features.
+                            <br> such as a guarantor account or a third party
+                            <br> that guarantees your transactions.
                         </p>
                     </div>
                     <div class="form-side">
@@ -23,44 +24,24 @@
                         </a>
                         <h6 class="mb-4">Register Umkm</h6>
 
-                        <form method="POST" action="{{ route('registrasi.umkm') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('registrasiUmkm') }}" enctype="multipart/form-data">
                             @csrf
 
                             <label class="form-group has-float-label mb-4">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus/>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" disabled/>
                                 <span>Username</span>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </label>
                             <label class="form-group has-float-label mb-4">
-                                <input id="nama_toko" type="text" class="form-control @error('nama_toko') is-invalid @enderror" name="nama_toko" value="{{ old('nama_toko') }}" required autocomplete="nama_toko" autofocus/>
+                                <input id="nama_toko" type="text" class="form-control" name="nama_toko" value="{{ $user->nama_umkm }}" disabled/>
                                 <span>Nama Toko</span>
-                                @error('nama_toko')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </label>
                             <label class="form-group has-float-label mb-4">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus/>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" disabled/>
                                 <span>Email</span>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </label>
                             <label class="form-group has-float-label mb-3">
-                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus/>
+                                <input id="phone" type="number" class="form-control" name="phone" value="{{ $user->phone }}" disabled/>
                                 <span>Nomor Hp/Wa</span>
-                                @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </label>
                             <i><small class="text-muted">//* berisi data toko yang didaftarkan, seperti:surat izin usaha, foto tempat usaha </small></i>
                             <label class="form-group has-float-label mb-4 mt-1">
@@ -90,17 +71,9 @@
                                     </span>
                                 @enderror
                             </label>
-                            <label class="form-group has-float-label mb-4">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"/>
-                                <span>Konfirmasi Password</span>
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </label>
                             <div class="d-flex justify-content-end align-items-center">
-                                <button class="btn btn-primary btn-lg btn-shadow" type="submit">REGISTER</button>
+                                <a href="{{ route('home') }}" class="btn btn-danger btn-lg btn-shadow mr-2 white">Home</a>
+                                <button class="btn btn-primary btn-lg btn-shadow" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>

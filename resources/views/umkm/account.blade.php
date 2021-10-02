@@ -48,7 +48,7 @@
 
                                                 <div id="accordion" class="form-group">
                                                     <div class="border">
-                                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                                        <button type="button" id="alamat" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
                                                             aria-expanded="false" aria-controls="collapseOne">
                                                             -> Alamat Utama
                                                         </button>
@@ -59,11 +59,11 @@
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Provinsi</label>
                                                                         @if ($user->alamat)
-                                                                            <select name="alamat[]" id="province" class="form-control">
-                                                                                <option value="{{ json_decode($user->alamat[0]) }}">{{ province(json_decode($user->alamat)) }}</option>
+                                                                            <select name="provinsi" id="province" class="form-control">
+                                                                                <option value="{{ $user->alamat->provinsi }}">{{ province($user->alamat->provinsi) }}</option>
                                                                             </select>
                                                                         @else
-                                                                            <select name="alamat[]" id="province" class="form-control">
+                                                                            <select name="provinsi" id="province" class="form-control">
                                                                                 <option></option>
                                                                             </select>
                                                                         @endif
@@ -71,11 +71,11 @@
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Kabupaten/Kota</label>
                                                                         @if ($user->alamat)
-                                                                            <select name="alamat[]" id="kota" class="form-control">
-                                                                                <option value="{{ json_decode($user->alamat[1]) }}">{{ kota(json_decode($user->alamat)) }}</option>
+                                                                            <select name="kabupaten" id="kota" class="form-control">
+                                                                                <option value="{{ $user->alamat->kabupaten }}">{{ kota($user->alamat->kabupaten) }}</option>
                                                                             </select>
                                                                         @else
-                                                                            <select name="alamat[]" id="kota" class="form-control">
+                                                                            <select name="kabupaten" id="kota" class="form-control">
                                                                                 <option></option>
                                                                             </select>
                                                                         @endif
@@ -83,11 +83,11 @@
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Kelurahan</label>
                                                                         @if ($user->alamat)
-                                                                            <select name="alamat[]" id="kelurahan" class="form-control">
-                                                                                <option value="{{ json_decode($user->alamat[2]) }}">{{ kelurahan(json_decode($user->alamat)) }}</option>
+                                                                            <select name="kecamatan" id="kelurahan" class="form-control">
+                                                                                <option value="{{ $user->alamat->kecamatan }}">{{ kelurahan($user->alamat->kecamatan) }}</option>
                                                                             </select>
                                                                         @else
-                                                                            <select name="alamat[]" id="kelurahan" class="form-control">
+                                                                            <select name="kecamatan" id="kelurahan" class="form-control">
                                                                                 <option></option>
                                                                             </select>
                                                                         @endif
@@ -95,21 +95,24 @@
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Desa</label>
                                                                         @if ($user->alamat)
-                                                                            <select name="alamat[]" id="desa" class="form-control">
-                                                                                <option value="{{ json_decode($user->alamat[3]) }}">{{ desa(json_decode($user->alamat)) }}</option>
+                                                                            <select name="desa" id="desa" class="form-control">
+                                                                                <option value="{{ $user->alamat->desa }}">{{ desa($user->alamat->desa) }}</option>
                                                                             </select>
                                                                         @else
-                                                                            <select name="alamat[]" id="desa" class="form-control">
+                                                                            <select name="desa" id="desa" class="form-control">
                                                                                 <option></option>
                                                                             </select>
                                                                         @endif
+                                                                    </div>
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="">Jalan dan lain-lain</label>
+                                                                        <input type="text" class="form-control" name="lain" placeholder="Jalan, RT/RW" value="{{ $user->alamat->lain }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -127,8 +130,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-2 ml-auto">
-                                        <button class="btn btn-primary">Submit</button>
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <a href="{{ route('todoRegistrasiUmkm') }}" class="btn btn-info mr-2">Upgrade Account</a>
+                                        <button class="btn btn-primary">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -143,7 +147,13 @@
 <script src="{{ asset('js/jquery.min.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    $(document).on("click", "#province", function() { 
+    $(document).on('click', '#alamat', function () {
+        if (!"{{ $user->alamat }}") {
+            province()
+        }
+    })
+
+    function province() { 
         $.ajax({
             type: 'GET',
             url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
@@ -162,7 +172,8 @@
                 console.log(response)
             }
         });
-    })
+    }
+
     $(function() {
         $("#province").change(function() { 
             var displaycourse = $("#province option:selected").val();

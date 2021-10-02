@@ -142,7 +142,7 @@
                                     <i class="iconsminds-coins large-icon"></i>
                                     <i class="iconsminds-coins large-icon"></i>
                                     <h5 class="mb-0 font-weight-semibold color-theme-1 mb-4">Paket 3</h5>
-                                    <p class="text-large mb-2 text-default">> Rp.10,000,000</p>
+                                    <p class="text-large mb-2 text-default">< Rp.50,000,000</p>
                                     <p class="text-muted text-small">User/Month</p>
                                 </div>
                                 <div

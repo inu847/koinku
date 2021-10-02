@@ -8,6 +8,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\ManageOrderController;
 use App\Http\Controllers\RekpenController;
 use App\Http\Controllers\UmkmController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,6 +72,7 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::get('rekpen', [RekpenController::class, 'index'])->name('rekpen.index');
     Route::get('rekpen/create', [RekpenController::class, 'create'])->name('rekpen.create');
     Route::post('rekpen/pembayaran', [RekpenController::class, 'bayar'])->name('rekpen.bayar');
+    Route::post('rekpen/find-email', [RekpenController::class, 'findByEmail'])->name('rekpen.findByEmail');
 
     // JOB
     Route::get('job', [JobsController::class, 'index'])->name('job.index');
@@ -80,4 +82,9 @@ Route::prefix('umkm')->middleware('umkm')->group(function () {
     Route::post('job/store', [JobsController::class, 'store'])->name('job.store');
     Route::post('job/update/status', [JobsController::class, 'ubahStatus'])->name('job.status');
     Route::post('job/delete', [JobsController::class, 'destroy'])->name('job.destroy');
+
+    // Chat
+    Route::get('chat', [ChatController::class, 'chat'])->name('chat');
+    Route::get('chat/show', [ChatController::class, 'showchat'])->name('showchat');
+    Route::post('chat/post', [ChatController::class, 'postChatSeller'])->name('post.chatSeller');
 });

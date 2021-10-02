@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Job');
     }
+
+    function alamat()
+    {
+        return $this->hasOne('App\Models\Alamat');
+    }
+
+    public function chat()
+    {
+        return $this->hasMany('App\Models\Chat');
+    }
 }

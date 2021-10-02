@@ -16,12 +16,11 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'adinugroho',
-            'nama_umkm' => 'adishop',
+            'nama_umkm' => 'genengan_koi',
             'email' => 'adin72978@gmail.com',
             'phone' => '083601822666',
             'status' => 'active',
             'tanggal_lahir' => now(),
-            'alamat' => 'Selopuro 02/01',
             'password' => \Hash::make('Semogaberkah'),
             'created_at' => now(),
             'updated_at' => now(),

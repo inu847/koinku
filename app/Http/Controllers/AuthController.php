@@ -78,6 +78,13 @@ class AuthController extends Controller
     }
 
     // DAFTAR UMKM
+    public function todoRegistrasiUmkm()
+    {
+        $user = Auth::guard('user')->user();
+
+        return view('auth.registerUmkm', ['user' => $user]);
+    }
+
     public function registrasiUmkm(Request $request)
     {
         \Validator::make($request->all(), [

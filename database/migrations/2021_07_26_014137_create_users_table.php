@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('nama_umkm')->unique()->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->string('alamat')->nullable();
             $table->string('file_umkm')->nullable();
             $table->string('profile')->nullable();
             $table->string('ktp')->nullable();

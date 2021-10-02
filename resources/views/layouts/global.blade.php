@@ -210,6 +210,30 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('chat') }}">
+                            <i class="simple-icon-bubbles"></i> 
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('job.index') }}">
+                            <i class="simple-icon-grid"></i> 
+                            <span>Jobs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('umkm.account') }}">
+                            <i class="simple-icon-settings"></i>
+                            <span>Account Setting</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('todoRegistrasiUmkm') }}">
+                            <i class="simple-icon-diamond"></i> 
+                            <span>Upgrade Account</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('gadai.index') }}">
                             <i class="iconsminds-scale"></i>
                             <span>Pegadaian</span>
@@ -221,23 +245,6 @@
                             <span>Investasi</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('job.index') }}">
-                            <i class="simple-icon-grid"></i> 
-                            <span>Jobs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('umkm.account') }}">
-                            <i class="simple-icon-settings"></i><span>Account Setting</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="simple-icon-diamond"></i> 
-                            <span>Tools</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -247,13 +254,17 @@
         @yield('content')
     </main>
 
-    <footer class="page-footer">
-        <div class="footer-content">
-            <div class="container-fluid">
-                <p class="mb-0 text-muted text-center">© {{now()->format('Y')}} Inkapps</p>
+    @hasSection ('footer')
+        @yield('footer')
+    @else
+        <footer class="page-footer">
+            <div class="footer-content">
+                <div class="container-fluid">
+                    <p class="mb-0 text-muted text-center">© {{now()->format('Y')}} Inkapps</p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    @endif
 
     <script src="{{ asset('js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/vendor/bootstrap.bundle.min.js') }}"></script>

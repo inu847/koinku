@@ -24,18 +24,47 @@
                         <th>Nominal</th>
                         <th>Status</th>
                         <th>Transaksi Dengan</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Koi</td>
-                        <td>1.900.000</td>
-                        <td><span class="badge badge-primary">On Proces</span></td>
-                        <td>Adi Nugroho</td>
-                    </tr>
+                    @foreach ($rekpens as $key => $rekpen)  
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{ $rekpen->judul }}</td>
+                            <td>{{ $rekpen->nominal }}</td>
+                            <td><span class="badge badge-primary">{{ $rekpen->status }}</span></td>
+                            @if ($rekpen->buyer_id)  
+                                <td>{{ $rekpen->buyer_id }}</td>
+                            @else
+                                <td>-</td>
+                            @endif
+                            <td>
+                                <button id="getlink" data-resource="{{ $rekpen->token }}" class="btn btn-info"><i alt="Salin Link" class="simple-icon-link"></i></button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 @endsection
+
+<script src="{{ asset('js/jquery.min.js')}}"></script>
+<script>
+    $(document).on('click', '#getlink', function (e) {
+        var resource = e.currentTarget.dataset.resource;
+        var Url = "http://koimp/rekpen?token="+resource
+        // Url = window.location.href;
+        console.log(Url)
+        Url.select(); 
+        document.execCommand("copy");
+    })
+    // function getlink() {
+    //     var Url = document.getElementById("url");
+    //     Url.innerHTML = window.location.href;
+    //     console.log(Url.innerHTML)
+    //     Url.select();
+    //     document.execCommand("copy");
+    // }
+</script>

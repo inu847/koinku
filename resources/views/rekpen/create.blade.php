@@ -9,14 +9,23 @@
         <div class="card-body">
             <h3 class="m-3">Buat Transaksi</h3>
             <hr class="m-2">
-            <form action="">
+            <form action="{{ route('rekpen.bayar')}}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group mt-2">
                     <label for="">Judul Transaksi</label>
-                    <input type="text" class="form-control" id="judul" placeholder="">
+                    <input type="text" class="form-control" id="judul" name="judul" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="">Buyer</label>
+                    <div>
+                        <small>*kosongkan jika pembeli tidak terdaftar sebagai user</small>
+                    </div>
+                    <input type="email" name="email" class="form-control" id="buyer" placeholder="Masukkan Email Buyer">
+                    <div id="card-email"></div>
                 </div>
                 <div class="form-group">
                     <label for="">Nominal</label>
-                    <input type="number" class="form-control" id="nominal" placeholder="">
+                    <input type="number" name="nominal" class="form-control" id="nominal" placeholder="">
                 </div>
                 <button class="btn btn-primary btn-block" id="bayar">Bayar</button>
             </form>
@@ -25,6 +34,47 @@
 @endsection
 
 <script src="{{ asset('js/jquery.min.js') }}"></script>
+<script>
+    $(document).on('input', "#buyer", function () {
+        var elemEmail = `<div class="card col-md-11" style="position: absolute;" id="view-mail">
+                                <div class="card-body" id="email">
+                                        
+                                </div>
+                            </div>`
+        $('#card-email').html(elemEmail)
+        var data = $('#buyer').val()
+
+        $.ajax({
+            type: 'POST',
+            url: '{{route("rekpen.findByEmail")}}',
+            data: {
+                "_token": "{{ csrf_token() }}",
+                email : data,
+            },
+            async: false,
+            dataType: 'json',
+            success: function(response) {
+                var results = response.data
+                console.log(results[0].email)
+                
+                for (let i = 0; i < results.length; i++) {
+                    $('#email').append('<p id="setEmail" data-choice="'+results[i].email+'">'+results[i].email+'</p>')
+                }
+                
+            },
+            error: function(response) {
+                console.log(response)
+            }
+        });
+    })
+
+    $(document).on('click', '#setEmail', function (e) {
+        var choiceEmail = e.currentTarget.dataset.choice;
+        console.log(choiceEmail)
+        $("#view-mail").remove()
+        $("#buyer").val(choiceEmail)
+    })
+</script>
 <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-zuLignrNUoqy1d-0"></script>
 <script>
     $(document).on('click', '#bayar', function(e) {

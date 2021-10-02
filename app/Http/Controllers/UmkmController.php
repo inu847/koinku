@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alamat;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,12 +26,18 @@ class UmkmController extends Controller
     {
         $user = User::findOrFail(Auth::guard('user')->user()->id);
         $user->name = $request->get('username');
-        // $user->username = $request->get('username');
         $user->tanggal_lahir = $request->get('tanggal_lahir');
         // $user->profil = $request->get('profil');
-        $user->alamat = json_encode($request->get('alamat'));
-
         $user->save();
+
+        $alamat = new Alamat;
+        $alamat->provinsi = $request->get('provinsi');
+        $alamat->kabupaten = $request->get('kabupaten');
+        $alamat->kecamatan = $request->get('kecamatan');
+        $alamat->desa = $request->get('desa');
+        $alamat->lain = $request->get('lain');
+        $alamat->user_id = Auth::guard('user')->user()->id;
+        $alamat->save();
 
         return redirect()->back()->with('status', 'Perubahan akun berhasil!!');
     }

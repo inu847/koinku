@@ -1,13 +1,19 @@
 <?php
 
 use App\Models\Product;
+use Illuminate\Support\Str;
+
+function generateToken()
+{
+    $random = Str::random(60);
+    return $random;
+}
 
 function province($alamat)
     {
-        
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/provinsi/'.$alamat[0],
+            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/provinsi/'.$alamat,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -25,7 +31,7 @@ function province($alamat)
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/kota/'.$alamat[1],
+            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/kota/'.$alamat,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -44,7 +50,7 @@ function province($alamat)
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/kecamatan/'.$alamat[2],
+            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/kecamatan/'.$alamat,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -62,7 +68,7 @@ function province($alamat)
     {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$alamat[3],
+            CURLOPT_URL => 'https://dev.farizdotid.com/api/daerahindonesia/kelurahan/'.$alamat,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

@@ -23,10 +23,10 @@
                                     <i class="iconsminds-billing text-white align-text-bottom d-inline-block"></i>
                                 </div>
                                 <div>
-                                    @if (Auth::guard('user')->user()->eMoney->emoney)
+                                    @if (Auth::guard('user')->user()->eMoney)
                                         <h1 class="text-white">Rp.{{ Auth::guard('user')->user()->eMoney->emoney }}</h1>
                                     @else
-                                    <h1 class="text-white">Rp.0</h1>
+                                        <h1 class="text-white">Rp.0</h1>
                                     @endif
                                 </div>
                             </div>
