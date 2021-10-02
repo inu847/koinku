@@ -106,7 +106,11 @@
                                                                     </div>
                                                                     <div class="form-group col-md-12">
                                                                         <label for="">Jalan dan lain-lain</label>
-                                                                        <input type="text" class="form-control" name="lain" placeholder="Jalan, RT/RW" value="{{ $user->alamat->lain }}">
+                                                                        @if ($user->alamat->lain)
+                                                                            <input type="text" class="form-control" name="lain" placeholder="Jalan, RT/RW" value="{{ $user->alamat->lain }}">
+                                                                        @else
+                                                                            <input type="text" class="form-control" name="lain" placeholder="Jalan, RT/RW">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
